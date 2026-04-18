@@ -48,3 +48,17 @@ void main() {
     }
   }
 }
+
+void addStudent(List<Map<String, dynamic>> students) {
+  stdout.write("Enter student name: ");
+  String name = stdin.readLineSync() ?? "Unknown";
+
+  students.add({
+    "name": name,
+    "scores": <int>[],
+    "bonus": null,
+    "comment": null
+  });
+
+  print("Student added successfully!");
+}
