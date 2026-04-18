@@ -19,11 +19,32 @@ void main() {
     int choice = int.tryParse(stdin.readLineSync() ?? "") ?? -1;
 
     switch (choice) {
+      case 1:
+        addStudent(students);
+        break;
+      case 2:
+        recordScore(students);
+        break;
+      case 3:
+        addBonus(students);
+        break;
+      case 4:
+        addComment(students);
+        break;
+      case 5:
+        viewAll(students);
+        break;
+      case 6:
+        viewReportCard(students);
+        break;
+      case 7:
+        classSummary(students);
+        break;
       case 8:
         print("Goodbye!");
         return;
       default:
-        print("Feature not implemented yet.");
+        print("Invalid option!");
     }
   }
 }
