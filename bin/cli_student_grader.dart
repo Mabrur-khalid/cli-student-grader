@@ -147,3 +147,48 @@ void viewReportCard(List<Map<String, dynamic>> students) {
   print("Grade: $grade");
   print("Comment: ${s["comment"] ?? "No comment"}");
 }
+void classSummary(List<Map<String, dynamic>> students) {
+  if (students.isEmpty) return print("No data available.");
+
+  double total = 0;
+  int count = 0;
+  double highest = 0;
+  double lowest = 100;
+
+  for (var s in students) {
+    List scores = s["scores"];
+    if (scores.isEmpty) continue;
+
+    double avg = scores.reduce((a, b) => a + b) / scores.length;
+
+    total += avg;
+    count++;
+
+    if (avg > highest) highest = avg;
+    if (avg < lowest) lowest = avg;
+  }
+
+  if (count == 0) return print("No scores recorded.");
+
+  print("\n===== CLASS SUMMARY =====");
+  print("Students: ${students.length}");
+  print("Class Average: ${(total / count).toStringAsFixed(2)}");
+  print("Highest: $highest");
+  print("Lowest: $lowest");
+}
+
+int selectStudent(List students) {
+  for (int i = 0; i < students.length; i++) {
+    print("$i. ${students[i]["name"]}");
+  }
+
+  stdout.write("Select student index: ");
+  int index = int.tryParse(stdin.readLineSync() ?? "") ?? -1;
+
+  if (index < 0 || index >= students.length) {
+    print("Invalid student selected.");
+    return -1;
+  }
+
+  return index;
+}
