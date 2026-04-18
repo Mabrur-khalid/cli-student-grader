@@ -62,3 +62,20 @@ void addStudent(List<Map<String, dynamic>> students) {
 
   print("Student added successfully!");
 }
+void recordScore(List<Map<String, dynamic>> students) {
+  if (students.isEmpty) return print("No students found.");
+
+  int index = selectStudent(students);
+  if (index == -1) return;
+
+  int score;
+  while (true) {
+    stdout.write("Enter score (0-100): ");
+    score = int.tryParse(stdin.readLineSync() ?? "-1") ?? -1;
+    if (score >= 0 && score <= 100) break;
+    print("Invalid score!");
+  }
+
+  students[index]["scores"].add(score);
+  print("Score added!");
+}
