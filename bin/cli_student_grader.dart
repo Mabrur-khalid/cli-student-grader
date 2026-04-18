@@ -79,3 +79,26 @@ void recordScore(List<Map<String, dynamic>> students) {
   students[index]["scores"].add(score);
   print("Score added!");
 }
+void addBonus(List<Map<String, dynamic>> students) {
+  if (students.isEmpty) return print("No students found.");
+
+  int index = selectStudent(students);
+  if (index == -1) return;
+
+  stdout.write("Enter bonus (1-10): ");
+  int bonus = int.tryParse(stdin.readLineSync() ?? "0") ?? 0;
+
+  students[index]["bonus"] ??= bonus;
+  print("Bonus assigned!");
+}
+
+void addComment(List<Map<String, dynamic>> students) {
+  if (students.isEmpty) return print("No students found.");
+
+  int index = selectStudent(students);
+  if (index == -1) return;
+
+  stdout.write("Enter comment: ");
+  students[index]["comment"] = stdin.readLineSync();
+  print("Comment added!");
+}
