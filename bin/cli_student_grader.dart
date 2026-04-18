@@ -102,3 +102,48 @@ void addComment(List<Map<String, dynamic>> students) {
   students[index]["comment"] = stdin.readLineSync();
   print("Comment added!");
 }
+void viewAll(List<Map<String, dynamic>> students) {
+  if (students.isEmpty) return print("No students available.");
+
+  for (var s in students) {
+    String star = (s["bonus"] != null) ? "⭐" : "";
+    print("${s["name"]} (${s["scores"].length} scores) $star");
+  }
+}
+
+void viewReportCard(List<Map<String, dynamic>> students) {
+  if (students.isEmpty) return print("No students found.");
+
+  int index = selectStudent(students);
+  if (index == -1) return;
+
+  var s = students[index];
+  List scores = s["scores"];
+
+  if (scores.isEmpty) return print("No scores available.");
+
+  double avg =
+      scores.reduce((a, b) => a + b) / scores.length +
+      (s["bonus"] ?? 0);
+
+  String grade;
+  if (avg >= 90) {
+    grade = "A";
+  } else if (avg >= 80) {
+    grade = "B";
+  } else if (avg >= 70) {
+    grade = "C";
+  } else if (avg >= 60) {
+    grade = "D";
+  } else {
+    grade = "F";
+  }
+
+  print("\n===== REPORT CARD =====");
+  print("Name: ${s["name"]}");
+  print("Scores: $scores");
+  print("Bonus: ${s["bonus"] ?? 0}");
+  print("Average: ${avg.toStringAsFixed(2)}");
+  print("Grade: $grade");
+  print("Comment: ${s["comment"] ?? "No comment"}");
+}
